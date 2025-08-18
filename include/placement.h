@@ -3,7 +3,7 @@
  * @file placement.h
  * @brief Contratos para validar y colocar barcos en el tablero.
  *
- * Reglas e invariantes que debe cumplir la colocación:
+ * @invariant reglas e invariantes que debe cumplir la colocación:
  * - Los barcos solo pueden colocarse en orientación Horizontal o Vertical.
  * - Ninguna parte del barco puede salir de los límites del tablero.
  * - Ninguna celda del barco puede solaparse con celdas ya ocupadas por otros barcos.
@@ -11,13 +11,14 @@
  *   Es decir, todas las celdas adyacentes (ortogonales y diagonales) alrededor de cada celda del barco
  *   deben estar libres de barcos.
  *
- * Nota sobre "no contiguos":
+ * @note sobre "no contiguos":
  * - Al validar, se deben considerar las 8 celdas adyacentes a cada celda del barco.
  * - Si alguna de esas celdas adyacentes contiene parte de otro barco, la colocación es inválida.
  */
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "board.h"
 #include "fleet.h"
 #include "types.h"
@@ -25,6 +26,7 @@
 namespace battleship {
 
 struct Placement {
+    
 
     /**
      * @brief Comprueba si un barco puede colocarse en el tablero.
@@ -41,12 +43,11 @@ struct Placement {
      *     están libres de barcos (regla de no contigüidad).
      * @return false  En cualquier otro caso. No modifica ni el tablero ni la flota.
      *
-     * Precondiciones:
+     * @pre
      * - Ship::isValidPrototype(proto) == true
      * - Board::isInside(start) == true
      */
-    bool canPlace(const Ship& proto, Position start, Orientation orient,
-                  const Board& b, const Fleet& f);
+    bool canPlace(const Ship& proto, const Board& b, const Fleet& f);
 
     /**
      * @brief Coloca un barco en el tablero y lo añade a la flota.
@@ -58,10 +59,10 @@ struct Placement {
      * @param f       Flota (se agrega el barco ya materializado).
      * @return int    Identificador del barco agregado (índice en f.ships).
      *
-     * Pre:
+     * @pre
      * - canPlace(proto, start, orient, b, f) == true.
      *
-     * Post:
+     * @post
      * - Se agrega un Ship a f.ships con:
      *     name = proto.name,
      *     size = proto.size,
@@ -83,10 +84,10 @@ struct Placement {
      * @param pos      Posición central.
      * @return std::vector<Position>  Lista de posiciones adyacentes válidas (dentro del tablero).
      *
-     * Nota:
+     * @note
      * - Esta función descarta las posiciones que quedan fuera del tablero.
      */
-    static std::vector<Position> neighborhood(Position pos);
+    static std::vector<Position> n8(Position pos);
 
     /**
      * @brief Calcula el “anillo” (conjunto de celdas adyacentes) que rodea al tramo recto
@@ -99,7 +100,7 @@ struct Placement {
      *                                sin incluir las celdas del propio tramo y descartando posiciones
      *                                fuera del tablero.
      *
-     * Detalles:
+     * @details
      * - Para cada celda del tramo, se toman sus 8 vecinos válidos y se unen en un conjunto (sin duplicados).
      * - Las celdas del propio tramo no se incluyen en el resultado.
      */

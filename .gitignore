@@ -1,0 +1,9 @@
+/out/
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/*.vcxproj
+/*.sln
+/*.user
+/*.opendb
+/*.VC.db

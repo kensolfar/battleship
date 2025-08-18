@@ -1,0 +1,68 @@
+﻿{
+  "version": 4,
+  "configurePresets": [
+    {
+      "name": "win-msvc-debug",
+      "displayName": "Windows MSVC Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/win-msvc-debug",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "win-msvc-release",
+      "displayName": "Windows MSVC Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/win-msvc-release",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-wsl-debug",
+      "displayName": "Linux (WSL) Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-wsl-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-wsl-release",
+      "displayName": "Linux (WSL) Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/linux-wsl-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "macos-clang-debug",
+      "displayName": "macOS Clang Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/macos-clang-debug",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "win-msvc-debug",   "configurePreset": "win-msvc-debug"   },
+    { "name": "win-msvc-release", "configurePreset": "win-msvc-release" },
+    { "name": "linux-wsl-debug",  "configurePreset": "linux-wsl-debug"  },
+    { "name": "linux-wsl-release","configurePreset": "linux-wsl-release"},
+    { "name": "macos-clang-debug","configurePreset": "macos-clang-debug"}
+  ],
+  "testPresets": [
+    { "name": "win-msvc-debug",   "configurePreset": "win-msvc-debug"   },
+    { "name": "linux-wsl-debug",  "configurePreset": "linux-wsl-debug"  },
+    { "name": "macos-clang-debug","configurePreset": "macos-clang-debug"}
+  ]
+}
