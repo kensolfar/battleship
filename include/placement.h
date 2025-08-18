@@ -74,8 +74,7 @@ struct Placement {
      *     b.grid[row][col]    = CellState::Ship
      *     b.shipIdAt[row][col]= shipId (índice del barco recién agregado)
      */
-    int place(const Ship& proto, Position start, Orientation orient,
-              Board& b, Fleet& f);
+    int place(const Ship& proto, Board& b, Fleet& f);
 
     /**
      * @brief Devuelve las celdas adyacentes (8 direcciones) de una posición, 
